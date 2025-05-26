@@ -270,7 +270,7 @@ body::before {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Enhanced Carousel Styles with Mobile Sliding */
+/* Enhanced Carousel Styles with Dual Arrows */
 .carousel-container {
     position: relative;
     margin: 30px 0;
@@ -278,22 +278,24 @@ body::before {
     overflow: hidden;
 }
 
-/* Top Navigation Arrows */
+/* Top Navigation Arrows - BOTH LEFT AND RIGHT */
 .carousel-nav-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     padding: 0 10px;
+    width: 100%;
 }
 
-/* Bottom Navigation Arrows */
+/* Bottom Navigation Arrows - BOTH LEFT AND RIGHT */
 .carousel-nav-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
     padding: 0 10px;
+    width: 100%;
 }
 
 .carousel-btn {
@@ -315,6 +317,12 @@ body::before {
     justify-content: center;
 }
 
+.carousel-btn span {
+    font-size: 1.8rem;
+    line-height: 1;
+    display: block;
+}
+
 .carousel-btn:hover {
     background: linear-gradient(135deg, #FF6B35, #e55a2b);
     transform: scale(1.15);
@@ -326,6 +334,12 @@ body::before {
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+    opacity: 0.5;
+}
+
+.carousel-btn:disabled:hover {
+    background: #ccc;
+    transform: none;
 }
 
 /* Carousel Content Area */
@@ -453,4 +467,373 @@ body::before {
 
 .site-contact p {
     margin-bottom: 8px;
-   
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+    word-wrap: break-word;
+}
+
+.contamination-info {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 107, 53, 0.05));
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border-left: 5px solid #FF6B35;
+    position: relative;
+    z-index: 1;
+}
+
+.contamination-info p {
+    margin-bottom: 10px;
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+    word-wrap: break-word;
+}
+
+.disclaimer {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border-left: 5px solid #FF6B35;
+    position: relative;
+    z-index: 1;
+}
+
+.disclaimer p {
+    font-style: italic;
+    font-size: clamp(0.8rem, 1.6vw, 1rem);
+    line-height: 1.7;
+}
+
+/* Mitigation Section */
+.mitigation-question {
+    text-align: center;
+    margin: 80px 0 50px 0;
+}
+
+.mitigation-section {
+    margin: 50px 0;
+}
+
+.mitigation-card {
+    background: white;
+    border: 4px solid #FF6B35;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 0 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 350px;
+}
+
+.mitigation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 119, 73, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.mitigation-card:hover::before {
+    left: 100%;
+}
+
+.mitigation-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-color: #007749;
+}
+
+.mitigation-card h4 {
+    color: #FF6B35;
+    font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+
+.mitigation-item {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 107, 53, 0.05));
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border-left: 5px solid #007749;
+    position: relative;
+    z-index: 1;
+}
+
+.chemical-name {
+    font-weight: bold;
+    color: #007749;
+    margin-bottom: 8px;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.recommendation-label {
+    color: #666;
+    margin-bottom: 8px;
+    font-style: italic;
+    font-size: clamp(0.8rem, 1.6vw, 1rem);
+}
+
+.recommendation-text {
+    color: #333;
+    font-weight: 600;
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+    line-height: 1.6;
+}
+
+.no-recommendations {
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: clamp(0.9rem, 1.8vw, 1rem);
+}
+
+.general-advice {
+    color: #007749;
+    font-weight: bold;
+    text-align: center;
+    font-size: clamp(0.9rem, 1.8vw, 1rem);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 80px;
+    padding: 40px 30px;
+    background: linear-gradient(135deg, #007749 0%, #005a37 50%, #FF6B35 100%);
+    color: white;
+    border-radius: 20px;
+    font-size: clamp(0.8rem, 1.6vw, 1rem);
+    line-height: 1.8;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.footer p {
+    margin-bottom: 15px;
+}
+
+.footer p:last-child {
+    margin-bottom: 0;
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        padding: 15px;
+        max-width: 95%;
+    }
+    
+    .carousel-btn {
+        padding: 12px 16px;
+        font-size: 1.3rem;
+        min-width: 45px;
+        min-height: 45px;
+    }
+    
+    .carousel-btn span {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header {
+        padding: 25px 15px;
+        margin-bottom: 30px;
+    }
+    
+    .input-container {
+        max-width: 90%;
+        padding: 20px;
+    }
+    
+    .carousel-container {
+        min-height: 300px;
+    }
+    
+    .carousel-nav-top,
+    .carousel-nav-bottom {
+        padding: 0 5px;
+        margin: 15px 0;
+    }
+    
+    .carousel-btn {
+        padding: 10px 14px;
+        font-size: 1.2rem;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .carousel-btn span {
+        font-size: 1.3rem;
+    }
+    
+    .water-system-card,
+    .mitigation-card {
+        padding: 20px;
+        margin: 0 5px;
+        min-height: 280px;
+    }
+    
+    .footer {
+        padding: 25px 15px;
+        margin-top: 50px;
+    }
+    
+    /* Enable horizontal scrolling on mobile */
+    .carousel-content {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .carousel-content::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .carousel-slide {
+        scroll-snap-align: start;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 20px 10px;
+    }
+    
+    .glowing-text {
+        padding: 15px;
+        margin: 20px 0;
+    }
+    
+    .input-container {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .carousel-nav-top,
+    .carousel-nav-bottom {
+        padding: 0 3px;
+        margin: 10px 0;
+    }
+    
+    .carousel-btn {
+        padding: 8px 12px;
+        font-size: 1.1rem;
+        min-width: 36px;
+        min-height: 36px;
+    }
+    
+    .carousel-btn span {
+        font-size: 1.1rem;
+    }
+    
+    .water-system-card,
+    .mitigation-card {
+        padding: 15px;
+        margin: 0 3px;
+        min-height: 250px;
+    }
+    
+    .indicator-dot {
+        width: 10px;
+        height: 10px;
+        margin: 0 6px;
+    }
+    
+    .footer {
+        padding: 20px 10px;
+    }
+}
+
+@media (max-width: 320px) {
+    .container {
+        padding: 5px;
+    }
+    
+    .header {
+        padding: 15px 8px;
+    }
+    
+    .carousel-btn {
+        padding: 6px 10px;
+        font-size: 1rem;
+        min-width: 32px;
+        min-height: 32px;
+    }
+    
+    .carousel-btn span {
+        font-size: 1rem;
+    }
+    
+    .water-system-card,
+    .mitigation-card {
+        padding: 12px;
+        margin: 0 2px;
+        min-height: 220px;
+    }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    .carousel-track {
+        transition: none;
+    }
+    
+    .shimmer,
+    .glow,
+    .blink {
+        animation: none;
+    }
+    
+    .water-system-card::before,
+    .mitigation-card::before {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .water-system-card,
+    .mitigation-card {
+        border-width: 3px;
+    }
+    
+    .carousel-btn {
+        border: 2px solid white;
+    }
+}
+
+/* Print styles */
+@media print {
+    .carousel-btn,
+    .carousel-indicators {
+        display: none;
+    }
+    
+    .carousel-track {
+        display: block;
+    }
+    
+    .carousel-slide {
+        min-width: 100%;
+        page-break-inside: avoid;
+    }
+}
