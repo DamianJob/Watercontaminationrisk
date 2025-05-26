@@ -10,6 +10,7 @@ body {
   font-family: "Georgia", "Times New Roman", serif;
   line-height: 1.4;
   color: #333;
+  /* FIXED: Single green background - no layering */
   background: linear-gradient(135deg, #007749 0%, #005a37 50%, #007749 100%);
   min-height: 100vh;
   position: relative;
@@ -36,9 +37,10 @@ body::before {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.98);
+  /* FIXED: Transparent background - no white layer */
+  background: transparent;
   min-height: 100vh;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  /* REMOVED: No shadow needed */
 }
 
 /* Header Styles */
@@ -113,7 +115,7 @@ body::before {
   animation: glow 2s ease-in-out infinite alternate;
   padding: clamp(12px, 2.5vw, 20px);
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(0, 119, 73, 0.1));
+  background: rgba(255, 255, 255, 0.95);
   margin: clamp(12px, 2.5vw, 20px) 0;
   border: 2px solid rgba(255, 107, 53, 0.3);
 }
@@ -158,7 +160,7 @@ body::before {
   max-width: clamp(280px, 75vw, 450px);
   margin: 0 auto;
   padding: clamp(12px, 2.5vw, 25px);
-  background: linear-gradient(135deg, rgba(0, 119, 73, 0.1), rgba(255, 107, 53, 0.1));
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 15px;
   border: 2px solid rgba(0, 119, 73, 0.3);
 }
@@ -222,7 +224,7 @@ body::before {
   font-weight: bold;
   margin-top: 12px;
   padding: 12px;
-  background: rgba(211, 47, 47, 0.1);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 8px;
   border: 2px solid rgba(211, 47, 47, 0.3);
   display: none;
@@ -264,8 +266,9 @@ body::before {
 
 .loading p {
   font-size: clamp(0.8rem, 1.6vw, 1rem);
-  color: #007749;
+  color: white;
   font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .hidden {
@@ -279,23 +282,21 @@ body::before {
 
 .results-section h3 {
   text-align: center;
-  color: #007749;
+  color: white;
   font-size: clamp(1.1rem, 2.2vw, 1.4rem);
   margin-bottom: clamp(12px, 2.5vw, 20px);
   font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* COMPACT Carousel Styles - FIXED FOR SINGLE VIEW */
+/* FIXED: Carousel Styles - VERTICAL LAYOUT */
 .carousel-container {
   position: relative;
   margin: clamp(10px, 2vw, 15px) 0;
-  /* FIXED: Set maximum height to ensure single view */
-  max-height: 50vh;
   overflow: hidden;
 }
 
-/* Navigation Arrows - Smaller and More Compact */
+/* Navigation Arrows */
 .carousel-nav-top {
   display: flex;
   justify-content: space-between;
@@ -358,14 +359,11 @@ body::before {
   transform: none;
 }
 
-/* Carousel Content Area - COMPACT */
+/* Carousel Content Area */
 .carousel-content {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  /* FIXED: Ensure content fits in view */
-  height: auto;
-  max-height: 42vh;
 }
 
 .carousel-track {
@@ -379,7 +377,7 @@ body::before {
   flex-shrink: 0;
 }
 
-/* Carousel Indicators - Smaller */
+/* Carousel Indicators */
 .carousel-indicators {
   text-align: center;
   margin: clamp(6px, 1.2vw, 10px) 0;
@@ -391,7 +389,7 @@ body::before {
   width: clamp(6px, 1.2vw, 10px);
   height: clamp(6px, 1.2vw, 10px);
   border-radius: 50%;
-  background: #ccc;
+  background: rgba(255, 255, 255, 0.5);
   margin: 0 clamp(3px, 0.6vw, 6px);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -399,7 +397,7 @@ body::before {
 }
 
 .indicator-dot.active {
-  background: #007749;
+  background: white;
   transform: scale(1.15);
   border-color: #ff6b35;
 }
@@ -409,25 +407,22 @@ body::before {
   transform: scale(1.05);
 }
 
-/* OPTIMIZED Water System Card - Guaranteed Single View on All Devices */
+/* FIXED: VERTICAL Water System Card - Narrow and Tall */
 .water-system-card {
   background: white;
   border: 2px solid #007749;
-  border-radius: 10px;
-  padding: clamp(6px, 1.2vw, 10px);
-  margin: 0 clamp(2px, 0.4vw, 4px);
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  /* FIXED: Narrow width, allow height to grow */
+  max-width: clamp(300px, 60vw, 500px);
+  margin: 0 auto;
+  padding: clamp(12px, 2.5vw, 20px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
-  /* FIXED: Strict height control with device-specific limits */
+  overflow: visible;
+  /* FIXED: Remove height restrictions - let content flow vertically */
+  min-height: auto;
   height: auto;
-  max-height: 36vh; /* Reduced from 38vh */
-  overflow-y: hidden;
-  /* ADDED: Ensure content fits by using flexbox */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .water-system-card::before {
@@ -446,88 +441,98 @@ body::before {
 }
 
 .water-system-card:hover {
-  transform: translateY(-2px); /* Reduced from -3px */
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   border-color: #ff6b35;
 }
 
-/* OPTIMIZED: Site Name - More Compact */
+/* FIXED: Site Name - Better Spacing */
 .water-system-card h4 {
   color: #007749;
-  font-size: clamp(0.8rem, 1.6vw, 1rem); /* Reduced font size */
-  margin-bottom: clamp(4px, 0.8vw, 6px); /* Reduced margin */
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  margin-bottom: clamp(15px, 3vw, 20px);
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.3px; /* Reduced letter spacing */
+  letter-spacing: 0.5px;
   position: relative;
   z-index: 1;
-  line-height: 1.1; /* Tighter line height */
-  /* ADDED: Prevent text overflow */
+  line-height: 1.3;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: auto;
 }
 
-/* COMPACT Site Contact */
+/* FIXED: VERTICAL Site Contact - Stack Information */
 .site-contact {
-  background: linear-gradient(135deg, rgba(0, 119, 73, 0.08), rgba(0, 119, 73, 0.04));
-  padding: clamp(6px, 1.2vw, 10px);
+  background: linear-gradient(135deg, rgba(0, 119, 73, 0.1), rgba(0, 119, 73, 0.05));
+  padding: clamp(10px, 2vw, 15px);
   border-radius: 8px;
-  margin: clamp(4px, 0.8vw, 6px) 0;
-  border-left: 3px solid #007749;
+  margin: clamp(10px, 2vw, 15px) 0;
+  border-left: 4px solid #007749;
   position: relative;
   z-index: 1;
 }
 
 .site-contact h5 {
   color: #007749;
-  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-  margin-bottom: clamp(4px, 0.8vw, 6px);
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  margin-bottom: clamp(8px, 1.5vw, 12px);
   font-weight: bold;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .site-contact p {
-  margin-bottom: clamp(2px, 0.4vw, 3px);
-  font-size: clamp(0.65rem, 1.3vw, 0.8rem);
+  margin-bottom: clamp(5px, 1vw, 8px);
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
   word-wrap: break-word;
-  line-height: 1.2;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  /* FIXED: Better text layout */
+  text-align: left;
+  padding-left: 5px;
 }
 
-/* COMPACT Contamination Info */
+/* FIXED: VERTICAL Contamination Info */
 .contamination-info {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(255, 107, 53, 0.04));
-  padding: clamp(6px, 1.2vw, 10px);
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 107, 53, 0.05));
+  padding: clamp(10px, 2vw, 15px);
   border-radius: 8px;
-  margin: clamp(4px, 0.8vw, 6px) 0;
-  border-left: 3px solid #ff6b35;
+  margin: clamp(10px, 2vw, 15px) 0;
+  border-left: 4px solid #ff6b35;
   position: relative;
   z-index: 1;
 }
 
 .contamination-info p {
-  margin-bottom: clamp(3px, 0.6vw, 5px);
-  font-size: clamp(0.65rem, 1.3vw, 0.8rem);
+  margin-bottom: clamp(6px, 1.2vw, 10px);
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
   word-wrap: break-word;
-  line-height: 1.2;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  text-align: left;
+  padding-left: 5px;
 }
 
-/* COMPACT Disclaimer */
+/* FIXED: VERTICAL Disclaimer */
 .disclaimer {
-  background: linear-gradient(135deg, rgba(255, 193, 7, 0.08), rgba(255, 193, 7, 0.04));
-  padding: clamp(6px, 1.2vw, 10px);
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+  padding: clamp(10px, 2vw, 15px);
   border-radius: 8px;
-  margin: clamp(4px, 0.8vw, 6px) 0;
-  border-left: 3px solid #ff6b35;
+  margin: clamp(10px, 2vw, 15px) 0;
+  border-left: 4px solid #ff6b35;
   position: relative;
   z-index: 1;
 }
 
 .disclaimer p {
   font-style: italic;
-  font-size: clamp(0.6rem, 1.2vw, 0.75rem);
-  line-height: 1.3;
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: left;
+  padding-left: 5px;
 }
 
 /* Mitigation Section */
@@ -540,21 +545,22 @@ body::before {
   margin: clamp(15px, 3vw, 25px) 0;
 }
 
-/* ULTRA COMPACT Mitigation Card - FITS IN ONE VIEW */
+/* FIXED: VERTICAL Mitigation Card */
 .mitigation-card {
   background: white;
   border: 2px solid #ff6b35;
-  border-radius: 10px;
-  padding: clamp(8px, 1.5vw, 12px);
-  margin: 0 clamp(3px, 0.6vw, 5px);
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  /* FIXED: Narrow width, allow height to grow */
+  max-width: clamp(300px, 60vw, 500px);
+  margin: 0 auto;
+  padding: clamp(12px, 2.5vw, 20px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
-  /* FIXED: Strict height control - NO SCROLLING */
+  overflow: visible;
+  /* FIXED: Remove height restrictions */
+  min-height: auto;
   height: auto;
-  max-height: 38vh;
-  overflow-y: hidden;
 }
 
 .mitigation-card::before {
@@ -574,29 +580,31 @@ body::before {
 
 .mitigation-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   border-color: #007749;
 }
 
 .mitigation-card h4 {
   color: #ff6b35;
-  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
-  margin-bottom: clamp(6px, 1.2vw, 10px);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  margin-bottom: clamp(15px, 3vw, 20px);
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   position: relative;
   z-index: 1;
-  line-height: 1.2;
+  line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .mitigation-item {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(255, 107, 53, 0.04));
-  padding: clamp(6px, 1.2vw, 10px);
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 107, 53, 0.05));
+  padding: clamp(10px, 2vw, 15px);
   border-radius: 8px;
-  margin: clamp(4px, 0.8vw, 6px) 0;
-  border-left: 3px solid #007749;
+  margin: clamp(10px, 2vw, 15px) 0;
+  border-left: 4px solid #007749;
   position: relative;
   z-index: 1;
 }
@@ -604,37 +612,37 @@ body::before {
 .chemical-name {
   font-weight: bold;
   color: #007749;
-  margin-bottom: clamp(2px, 0.4vw, 4px);
-  font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+  margin-bottom: clamp(5px, 1vw, 8px);
+  font-size: clamp(0.85rem, 1.7vw, 1.05rem);
 }
 
 .recommendation-label {
   color: #666;
-  margin-bottom: clamp(2px, 0.4vw, 4px);
+  margin-bottom: clamp(5px, 1vw, 8px);
   font-style: italic;
-  font-size: clamp(0.6rem, 1.2vw, 0.75rem);
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
 }
 
 .recommendation-text {
   color: #333;
   font-weight: 600;
-  font-size: clamp(0.65rem, 1.3vw, 0.8rem);
-  line-height: 1.3;
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
+  line-height: 1.5;
 }
 
 .no-recommendations {
   color: #666;
   font-style: italic;
   text-align: center;
-  margin-bottom: clamp(3px, 0.6vw, 5px);
-  font-size: clamp(0.65rem, 1.3vw, 0.8rem);
+  margin-bottom: clamp(8px, 1.5vw, 12px);
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
 }
 
 .general-advice {
   color: #007749;
   font-weight: bold;
   text-align: center;
-  font-size: clamp(0.65rem, 1.3vw, 0.8rem);
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
 }
 
 /* Footer */
@@ -661,42 +669,16 @@ body::before {
 
 /* Enhanced Responsive Design */
 @media (max-width: 1024px) {
-  .container {
-    padding: 12px;
-    max-width: 95%;
-  }
-
-  .carousel-container {
-    max-height: 45vh;
-  }
-
-  .carousel-content {
-    max-height: 38vh;
-  }
-
   .water-system-card,
   .mitigation-card {
-    max-height: 35vh;
+    max-width: clamp(280px, 70vw, 450px);
   }
 }
 
 @media (max-width: 768px) {
-  .container {
-    padding: 8px;
-  }
-
-  .carousel-container {
-    max-height: 40vh;
-  }
-
-  .carousel-content {
-    max-height: 33vh;
-  }
-
   .water-system-card,
   .mitigation-card {
-    margin: 0 2px;
-    max-height: 30vh;
+    max-width: clamp(260px, 85vw, 400px);
   }
 
   /* Enable horizontal scrolling on mobile as backup */
@@ -719,41 +701,25 @@ body::before {
 }
 
 @media (max-width: 480px) {
-  .carousel-container {
-    max-height: 35vh;
-  }
-
-  .carousel-content {
-    max-height: 28vh;
-  }
-
   .water-system-card,
   .mitigation-card {
-    margin: 0 1px;
-    max-height: 25vh;
-    padding: 6px;
+    max-width: clamp(240px, 95vw, 350px);
   }
 }
 
 @media (max-width: 320px) {
-  .container {
-    padding: 5px;
-  }
-
-  .carousel-container {
-    max-height: 32vh;
-  }
-
-  .carousel-content {
-    max-height: 25vh;
-  }
-
   .water-system-card,
   .mitigation-card {
-    margin: 0;
-    max-height: 22vh;
-    padding: 5px;
+    max-width: clamp(220px, 98vw, 300px);
   }
+}
+
+/* Text Overflow Protection */
+.water-system-card *,
+.mitigation-card * {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 /* Accessibility Improvements */
