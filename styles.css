@@ -409,21 +409,25 @@ body::before {
   transform: scale(1.05);
 }
 
-/* ULTRA COMPACT Water System Card - FITS IN ONE VIEW */
+/* OPTIMIZED Water System Card - Guaranteed Single View on All Devices */
 .water-system-card {
   background: white;
   border: 2px solid #007749;
   border-radius: 10px;
-  padding: clamp(8px, 1.5vw, 12px);
-  margin: 0 clamp(3px, 0.6vw, 5px);
+  padding: clamp(6px, 1.2vw, 10px);
+  margin: 0 clamp(2px, 0.4vw, 4px);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  /* FIXED: Strict height control - NO SCROLLING */
+  /* FIXED: Strict height control with device-specific limits */
   height: auto;
-  max-height: 38vh;
+  max-height: 36vh; /* Reduced from 38vh */
   overflow-y: hidden;
+  /* ADDED: Ensure content fits by using flexbox */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .water-system-card::before {
@@ -442,22 +446,27 @@ body::before {
 }
 
 .water-system-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px); /* Reduced from -3px */
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   border-color: #ff6b35;
 }
 
+/* OPTIMIZED: Site Name - More Compact */
 .water-system-card h4 {
   color: #007749;
-  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
-  margin-bottom: clamp(6px, 1.2vw, 10px);
+  font-size: clamp(0.8rem, 1.6vw, 1rem); /* Reduced font size */
+  margin-bottom: clamp(4px, 0.8vw, 6px); /* Reduced margin */
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px; /* Reduced letter spacing */
   position: relative;
   z-index: 1;
-  line-height: 1.2;
+  line-height: 1.1; /* Tighter line height */
+  /* ADDED: Prevent text overflow */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 /* COMPACT Site Contact */
