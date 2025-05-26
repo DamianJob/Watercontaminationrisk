@@ -42,14 +42,37 @@
         <section id="results-section" class="results-section hidden">
             <h3>The following are information for water system(s) in the specified zip code</h3>
             
-            <div class="carousel-container">
-                <button class="carousel-btn prev-btn" onclick="previousSite()" id="prev-water-btn">&lt;</button>
-                <div id="water-systems-carousel" class="water-systems-carousel">
-                    <!-- Water system cards will be inserted here -->
+            <div class="carousel-container" id="water-systems-container">
+                <!-- TOP NAVIGATION - BOTH ARROWS -->
+                <div class="carousel-nav-top">
+                    <button class="carousel-btn prev" onclick="previousSite()" id="prev-water-btn-top" aria-label="Previous water system">
+                        <span>‹</span>
+                    </button>
+                    <button class="carousel-btn next" onclick="nextSite()" id="next-water-btn-top" aria-label="Next water system">
+                        <span>›</span>
+                    </button>
                 </div>
-                <button class="carousel-btn next-btn" onclick="nextSite()" id="next-water-btn">&gt;</button>
+                
+                <!-- CAROUSEL CONTENT -->
+                <div class="carousel-content">
+                    <div class="carousel-track" id="water-systems-carousel">
+                        <!-- Water system cards will be inserted here -->
+                    </div>
+                </div>
+                
+                <!-- CAROUSEL INDICATORS -->
+                <div class="carousel-indicators" id="water-indicators"></div>
+                
+                <!-- BOTTOM NAVIGATION - BOTH ARROWS -->
+                <div class="carousel-nav-bottom">
+                    <button class="carousel-btn prev" onclick="previousSite()" id="prev-water-btn-bottom" aria-label="Previous water system">
+                        <span>‹</span>
+                    </button>
+                    <button class="carousel-btn next" onclick="nextSite()" id="next-water-btn-bottom" aria-label="Next water system">
+                        <span>›</span>
+                    </button>
+                </div>
             </div>
-            <div class="carousel-indicators" id="water-indicators"></div>
         </section>
 
         <!-- Mitigation Question -->
@@ -61,14 +84,37 @@
 
         <!-- Mitigation Results -->
         <section id="mitigation-section" class="mitigation-section hidden">
-            <div class="carousel-container">
-                <button class="carousel-btn prev-btn" onclick="previousMitigation()" id="prev-mitigation-btn">&lt;</button>
-                <div id="mitigation-carousel" class="mitigation-carousel">
-                    <!-- Mitigation cards will be inserted here -->
+            <div class="carousel-container" id="mitigation-container">
+                <!-- TOP NAVIGATION - BOTH ARROWS -->
+                <div class="carousel-nav-top">
+                    <button class="carousel-btn prev" onclick="previousMitigation()" id="prev-mitigation-btn-top" aria-label="Previous mitigation">
+                        <span>‹</span>
+                    </button>
+                    <button class="carousel-btn next" onclick="nextMitigation()" id="next-mitigation-btn-top" aria-label="Next mitigation">
+                        <span>›</span>
+                    </button>
                 </div>
-                <button class="carousel-btn next-btn" onclick="nextMitigation()" id="next-mitigation-btn">&gt;</button>
+                
+                <!-- CAROUSEL CONTENT -->
+                <div class="carousel-content">
+                    <div class="carousel-track" id="mitigation-carousel">
+                        <!-- Mitigation cards will be inserted here -->
+                    </div>
+                </div>
+                
+                <!-- CAROUSEL INDICATORS -->
+                <div class="carousel-indicators" id="mitigation-indicators"></div>
+                
+                <!-- BOTTOM NAVIGATION - BOTH ARROWS -->
+                <div class="carousel-nav-bottom">
+                    <button class="carousel-btn prev" onclick="previousMitigation()" id="prev-mitigation-btn-bottom" aria-label="Previous mitigation">
+                        <span>‹</span>
+                    </button>
+                    <button class="carousel-btn next" onclick="nextMitigation()" id="next-mitigation-btn-bottom" aria-label="Next mitigation">
+                        <span>›</span>
+                    </button>
+                </div>
             </div>
-            <div class="carousel-indicators" id="mitigation-indicators"></div>
         </section>
 
         <!-- Footer -->
@@ -158,8 +204,13 @@
             currentSystemIndex = 0;
 
             waterSystems.forEach((system, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = 'carousel-slide';
+                slideDiv.setAttribute('data-index', index);
+                
                 const systemCard = createWaterSystemCard(system, index);
-                carousel.appendChild(systemCard);
+                slideDiv.appendChild(systemCard);
+                carousel.appendChild(slideDiv);
             });
 
             updateCarouselDisplay('water-systems-carousel', currentSystemIndex);
@@ -171,7 +222,6 @@
         function createWaterSystemCard(system, index) {
             const card = document.createElement('div');
             card.className = 'water-system-card';
-            card.setAttribute('data-index', index);
 
             // Collect all chemicals present
             const chemicals = [];
@@ -210,8 +260,13 @@
             currentMitigationIndex = 0;
 
             waterSystems.forEach((system, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = 'carousel-slide';
+                slideDiv.setAttribute('data-index', index);
+                
                 const mitigationCard = createMitigationCard(system, index);
-                carousel.appendChild(mitigationCard);
+                slideDiv.appendChild(mitigationCard);
+                carousel.appendChild(slideDiv);
             });
 
             updateCarouselDisplay('mitigation-carousel', currentMitigationIndex);
@@ -224,7 +279,6 @@
         function createMitigationCard(system, index) {
             const card = document.createElement('div');
             card.className = 'mitigation-card';
-            card.setAttribute('data-index', index);
 
             let mitigationContent = `<h4>"${system.MAILINGNAME || 'N/A'}"</h4>`;
             let hasRecommendations = false;
@@ -261,11 +315,11 @@
 
         function updateCarouselDisplay(carouselId, currentIndex) {
             const carousel = document.getElementById(carouselId);
-            const cards = carousel.children;
+            const slides = carousel.children;
             
-            for (let i = 0; i < cards.length; i++) {
-                cards[i].style.display = i === currentIndex ? 'block' : 'none';
-            }
+            // Use transform for smooth sliding
+            const translateX = -currentIndex * 100;
+            carousel.style.transform = `translateX(${translateX}%)`;
         }
 
         function updateIndicators(indicatorId, total, current) {
@@ -281,10 +335,12 @@
                             currentSystemIndex = i;
                             updateCarouselDisplay('water-systems-carousel', currentSystemIndex);
                             updateIndicators('water-indicators', waterSystems.length, currentSystemIndex);
+                            updateCarouselButtons('water');
                         } else {
                             currentMitigationIndex = i;
                             updateCarouselDisplay('mitigation-carousel', currentMitigationIndex);
                             updateIndicators('mitigation-indicators', waterSystems.length, currentMitigationIndex);
+                            updateCarouselButtons('mitigation');
                         }
                     };
                     container.appendChild(dot);
@@ -293,47 +349,73 @@
         }
 
         function updateCarouselButtons(type) {
-            const prevBtn = document.getElementById(`prev-${type}-btn`);
-            const nextBtn = document.getElementById(`next-${type}-btn`);
+            // Update all 4 buttons for each carousel type
+            const prevBtnTop = document.getElementById(`prev-${type}-btn-top`);
+            const nextBtnTop = document.getElementById(`next-${type}-btn-top`);
+            const prevBtnBottom = document.getElementById(`prev-${type}-btn-bottom`);
+            const nextBtnBottom = document.getElementById(`next-${type}-btn-bottom`);
             
-            if (waterSystems.length <= 1) {
-                prevBtn.style.display = 'none';
-                nextBtn.style.display = 'none';
+            const currentIndex = type === 'water' ? currentSystemIndex : currentMitigationIndex;
+            const totalItems = waterSystems.length;
+            
+            if (totalItems <= 1) {
+                // Hide all buttons if only one item
+                [prevBtnTop, nextBtnTop, prevBtnBottom, nextBtnBottom].forEach(btn => {
+                    if (btn) btn.style.display = 'none';
+                });
             } else {
-                prevBtn.style.display = 'block';
-                nextBtn.style.display = 'block';
+                // Show all buttons and update disabled states
+                [prevBtnTop, nextBtnTop, prevBtnBottom, nextBtnBottom].forEach(btn => {
+                    if (btn) btn.style.display = 'flex';
+                });
+                
+                // Disable/enable based on current position
+                const isFirst = currentIndex === 0;
+                const isLast = currentIndex === totalItems - 1;
+                
+                [prevBtnTop, prevBtnBottom].forEach(btn => {
+                    if (btn) btn.disabled = isFirst;
+                });
+                
+                [nextBtnTop, nextBtnBottom].forEach(btn => {
+                    if (btn) btn.disabled = isLast;
+                });
             }
         }
 
         function previousSite() {
-            if (waterSystems.length > 1) {
-                currentSystemIndex = (currentSystemIndex - 1 + waterSystems.length) % waterSystems.length;
+            if (waterSystems.length > 1 && currentSystemIndex > 0) {
+                currentSystemIndex--;
                 updateCarouselDisplay('water-systems-carousel', currentSystemIndex);
                 updateIndicators('water-indicators', waterSystems.length, currentSystemIndex);
+                updateCarouselButtons('water');
             }
         }
 
         function nextSite() {
-            if (waterSystems.length > 1) {
-                currentSystemIndex = (currentSystemIndex + 1) % waterSystems.length;
+            if (waterSystems.length > 1 && currentSystemIndex < waterSystems.length - 1) {
+                currentSystemIndex++;
                 updateCarouselDisplay('water-systems-carousel', currentSystemIndex);
                 updateIndicators('water-indicators', waterSystems.length, currentSystemIndex);
+                updateCarouselButtons('water');
             }
         }
 
         function previousMitigation() {
-            if (waterSystems.length > 1) {
-                currentMitigationIndex = (currentMitigationIndex - 1 + waterSystems.length) % waterSystems.length;
+            if (waterSystems.length > 1 && currentMitigationIndex > 0) {
+                currentMitigationIndex--;
                 updateCarouselDisplay('mitigation-carousel', currentMitigationIndex);
                 updateIndicators('mitigation-indicators', waterSystems.length, currentMitigationIndex);
+                updateCarouselButtons('mitigation');
             }
         }
 
         function nextMitigation() {
-            if (waterSystems.length > 1) {
-                currentMitigationIndex = (currentMitigationIndex + 1) % waterSystems.length;
+            if (waterSystems.length > 1 && currentMitigationIndex < waterSystems.length - 1) {
+                currentMitigationIndex++;
                 updateCarouselDisplay('mitigation-carousel', currentMitigationIndex);
                 updateIndicators('mitigation-indicators', waterSystems.length, currentMitigationIndex);
+                updateCarouselButtons('mitigation');
             }
         }
 
@@ -341,6 +423,54 @@
             document.getElementById('results-section').classList.add('hidden');
             document.getElementById('mitigation-question').classList.add('hidden');
             document.getElementById('mitigation-section').classList.add('hidden');
+        }
+
+        // Enhanced touch support for mobile
+        function addTouchSupport() {
+            const carousels = document.querySelectorAll('.carousel-track');
+            
+            carousels.forEach(carousel => {
+                let startX = 0;
+                let currentX = 0;
+                let isDragging = false;
+                
+                carousel.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    isDragging = true;
+                    carousel.style.transition = 'none';
+                }, { passive: true });
+                
+                carousel.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    currentX = e.touches[0].clientX;
+                    e.preventDefault();
+                }, { passive: false });
+                
+                carousel.addEventListener('touchend', (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    carousel.style.transition = 'transform 0.3s ease';
+                    
+                    const deltaX = currentX - startX;
+                    const threshold = 50; // Minimum swipe distance
+                    
+                    if (Math.abs(deltaX) > threshold) {
+                        if (carousel.id === 'water-systems-carousel') {
+                            if (deltaX > 0) {
+                                previousSite();
+                            } else {
+                                nextSite();
+                            }
+                        } else if (carousel.id === 'mitigation-carousel') {
+                            if (deltaX > 0) {
+                                previousMitigation();
+                            } else {
+                                nextMitigation();
+                            }
+                        }
+                    }
+                });
+            });
         }
 
         // Event listeners
@@ -355,6 +485,11 @@
             if (this.value.length > 5) {
                 this.value = this.value.slice(0, 5);
             }
+        });
+
+        // Initialize touch support when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            addTouchSupport();
         });
     </script>
 </body>
